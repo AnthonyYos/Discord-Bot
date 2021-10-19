@@ -13,7 +13,7 @@ class LearningDiscordBot_commands(commands.Cog, name = "User Commands"):
 
 
     # Roll Dice command
-    @commands.command(help = "Rolls x-amount of y-sided dice")
+    @commands.command(help = "Rolls x-amount of y-sided dice.")
     async def roll(self, ctx, number_of_dice: int, number_of_sides: int):
         try:
             if number_of_dice <= 0 or number_of_sides <= 0:
@@ -26,14 +26,14 @@ class LearningDiscordBot_commands(commands.Cog, name = "User Commands"):
                 for dice in range(number_of_dice)
             ]
         except (ValueError):
-            await ctx.send("Input value(s) must be a value of 1 or greater")
+            await ctx.send("Input value(s) must be a value of 1 or greater.")
         # except (TypeError):
         #     await ctx.send("Input value(s) must be a/an integer(s)")
             
         await ctx.send(", ".join(dice))
 
     # 8ball command
-    @commands.command(name = "8ball", help='Responds with a random 8-ball saying')
+    @commands.command(name = "8ball", help='Responds with a random 8-ball saying.')
     async def magic_8_ball(self, ctx):
         magic_8_ball_quotes = [
             "As I see it, yes.",
@@ -62,7 +62,7 @@ class LearningDiscordBot_commands(commands.Cog, name = "User Commands"):
         await ctx.send(response)
     
 
-    @commands.command(help='Coin flip responds w/ head or tail')
+    @commands.command(help='Coin flip responds w/ head or tail.')
     async def coin(self, ctx):
         coin = ["Heads","Tails"]
         response = random.choice(coin)
