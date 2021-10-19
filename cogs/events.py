@@ -39,19 +39,18 @@ class LearningDiscordBot_events(commands.Cog):
 
         # User input
         if isinstance(error, discord.ext.commands.UserInputError):
-            await ctx.send(f"Used the wrong inputs for the '!{ctx.command.name}' command. \nType '!help {ctx.command.name}' to see the correct inputs.")
+            await ctx.send(f"Used the wrong inputs for the '!{ctx.command.name}' command.\nType '!help {ctx.command.name}' to see the correct inputs.")
             return
 
         # Missing inputs
         if isinstance(error, discord.ext.commands.MissingRequiredArgument):
-            await ctx.send(f"Missing input(s) for the '!{ctx.command.name}' command \nType '!help {ctx.command.name}' to see the inputs needed.")
+            await ctx.send(f"Missing input(s) for the '!{ctx.command.name}' command.\nType '!help {ctx.command.name}' to see the inputs needed.")
             return
         
         # Unknown command
         if isinstance(error, discord.ext.commands.errors.CommandNotFound):
             await ctx.send("Unknown command, double check you're spelling.\nType '!help' to get a list of commands.")
             return
-
 
         # Missing permissions
         if isinstance(error, discord.ext.commands.MissingPermissions):
