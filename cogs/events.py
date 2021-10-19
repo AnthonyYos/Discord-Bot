@@ -28,12 +28,35 @@ class LearningDiscordBot_events(commands.Cog):
     # Send message to new users, joining the server
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        await member.send(f"Hi {member.name}, welcome to {member.guild.name}")
+        await member.send(f"Hi {member.name}, welcome to {member.guild.name}.")
         # await member.create_dm()
         # await member.dm_channel.send(f"Hi {member.name}, welcome to the discord")
     
 
+    # Bot posts error handling messages for commands in various situations
+    @commands.Cog.listener()
+    async def on_command_error(self, ctx, error):
 
+        # User input
+        if isinstance(error, discord.ext.commands.UserInputError):
+            await ctx.send(f"Used the wrong inputs for the '!{ctx.command.name}' command. \nType '!help {ctx.command.name}' to see the correct inputs.")
+            return
+
+        # Missing inputs
+        if isinstance(error, discord.ext.commands.MissingRequiredArgument):
+            await ctx.send(f"Missing input(s) for the '!{ctx.command.name}' command \nType '!help {ctx.command.name}' to see the inputs needed.")
+            return
+        
+        # Unknown command
+        if isinstance(error, discord.ext.commands.errors.CommandNotFound):
+            await ctx.send("Unknown command, double check you're spelling.\nType '!help' to get a list of commands.")
+            return
+
+
+        # Missing permissions
+        if isinstance(error, discord.ext.commands.MissingPermissions):
+            await ctx.send(error)
+            return
 
 
 def setup(bot):
