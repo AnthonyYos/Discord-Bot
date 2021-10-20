@@ -37,7 +37,7 @@ class Admin(commands.Cog, name = "Admin-Only Commands"):
     @commands.command(help="Clears x-amount of messages, command prompt is included in the count.")
     @commands.has_permissions(administrator=True)
     async def clear(self,ctx, number_of_messages: int):
-        await ctx.channel.purge(limit = number_of_messages)
+        await ctx.channel.purge(limit = number_of_messages+1)
 
 
 def setup(bot):
