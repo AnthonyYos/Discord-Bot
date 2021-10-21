@@ -15,8 +15,18 @@ class LearningDiscordBot_events(commands.Cog):
     # Called when messages are sent
     @commands.Cog.listener()
     async def on_message(self, message):
+        # Don't respond to ourselves
         if message.author == self.bot.user:
             return
+
+        # Banned words list
+        # .strip() gets rid of new lines
+        banned_words = [line.lower().strip() for line in open("badwords.txt","r")]
+
+        # Delete messages containing banned words
+        if any(word in message.content for word in banned_words):
+            await message.delete()
+            await message.channel.send("Please don't say that here")
         
         if "hello" in message.content.lower():
             await message.channel.send(f"Hi")
@@ -28,10 +38,15 @@ class LearningDiscordBot_events(commands.Cog):
     # Send message to new users, joining the server
     @commands.Cog.listener()
     async def on_member_join(self, member):
+        print(f"{member.name} has joined the server")
         await member.send(f"Hi {member.name}, welcome to {member.guild.name}.")
         # await member.create_dm()
         # await member.dm_channel.send(f"Hi {member.name}, welcome to the discord")
     
+    # Prints a message of when a user leaves the server
+    @commands.Cog.listener()
+    async def on_member_remove(self, member):
+        print(f"{member.name} has left the server")
 
     # Bot posts error handling messages for commands in various situations
     @commands.Cog.listener()
