@@ -21,7 +21,7 @@ class LearningDiscordBot_events(commands.Cog):
 
         # Banned words list
         # .strip() gets rid of new lines
-        banned_words = [line.lower().strip() for line in open("badwords.txt","r")]
+        banned_words = {line.lower().strip() for line in open("badwords.txt","r")}
 
         # Delete messages containing banned words
         if any(word in message.content for word in banned_words):
