@@ -11,20 +11,20 @@ class LearningDiscordBot_commands(commands.Cog, name = "User Commands"):
     async def on_ready(self):
         print("Commands cog loaded")
 
-
     # Roll Dice command
     @commands.command(help = "Rolls x-amount of y-sided dice.")
     async def roll(self, ctx, number_of_dice: int, number_of_sides: int):
+        # Check to ensure user inputs are positive numbers
         try:
             if number_of_dice <= 0 or number_of_sides <= 0:
                 raise ValueError
             # if isinstance(number_of_dice,int) != True or isinstance(number_of_sides,int) != True:
             #     raise TypeError
+
         # REMINDER this works because of list comprehension
-            dice = [
-                str(random.randint(1, number_of_sides))
-                for dice in range(number_of_dice)
-            ]
+            dice = [str(random.randint(1, number_of_sides))for dice in range(number_of_dice)]
+
+        # Raise error if user inputs are not positive numbers
         except (ValueError):
             await ctx.send("Input value(s) must be an integer value of 1 or greater.")
         # except (TypeError):
@@ -57,10 +57,9 @@ class LearningDiscordBot_commands(commands.Cog, name = "User Commands"):
             "Yes – definitely.",
             "You may rely on it."
         ]
-
         response = random.choice(magic_8_ball_quotes)
-        await ctx.send(response)
-    
+        await ctx.send(response)  
+
 
     @commands.command(help='Coin flip responds w/ head or tail.')
     async def coin(self, ctx):
