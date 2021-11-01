@@ -68,12 +68,12 @@ class Admin(commands.Cog, name = "Admin-Only Commands"):
         if word in banned_words:
             banned_words.remove(word.lower())
             with open("badwords.txt","w") as f:
-                await ctx.send(f"This word is now allowed ")
+                await ctx.send(f"The word '{word}' is now allowed to be said")
                 await f.write("\n".join(banned_words))
             f.close()
         # Tell user that word wasn't banned
         else:
-            await ctx.send(f"That word isn't banned here")
+            await ctx.send(f"The word '{word}' isn't banned here")
 
 def setup(bot):
     bot.add_cog(Admin(bot))
