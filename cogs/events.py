@@ -28,7 +28,7 @@ class LearningDiscordBot_events(commands.Cog):
         # Delete messages containing banned words
         if any(word in message.content.lower() for word in banned_words):
             await message.delete()
-            await message.channel.send(f"{message.author.mention} Please don't say that here")
+            await message.channel.send(f"{message.author.mention} Your message was censored\nPlease don't say that here")
         
         if "hello" in message.content.lower():
             await message.channel.send(f"Hi")

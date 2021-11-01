@@ -9,7 +9,7 @@ class Admin(commands.Cog, name = "Admin-Only Commands"):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        print("Admin commands cog loaded")
+        print("Admin commands cog loaded.")
 
 
     # Unload cog
@@ -40,7 +40,7 @@ class Admin(commands.Cog, name = "Admin-Only Commands"):
         await ctx.channel.purge(limit = number_of_messages+1)
 
     # Add to banned words list
-    @commands.command(name ="ban_word", help = "Adds a new word to the list of banned words")
+    @commands.command(name ="ban_word", help = "Adds a new word to the list of banned words.")
     @commands.has_permissions(administrator=True)
     async def add_word(self, ctx, word: str):
         # Load words into set
@@ -50,14 +50,14 @@ class Admin(commands.Cog, name = "Admin-Only Commands"):
         # Check if word is already banned
         if word not in banned_words:
             with open("badwords.txt","a") as f:
-                await ctx.send(f"This is now a bad word")
+                await ctx.send(f"This is now a bad word.")
                 await f.writelines("\n" + word.lower())
             f.close()
         else:
-            await ctx.send(f"That is already a bad word")
+            await ctx.send(f"That is already a bad word.")
 
     # Remove word from banned words list
-    @commands.command(name ="remove_word", help = "Removes word from the list of banned words")
+    @commands.command(name ="remove_word", help = "Removes word from the list of banned words.")
     @commands.has_permissions(administrator=True)
     async def remove_word(self, ctx, word: str):
         # Load words into set
@@ -68,12 +68,12 @@ class Admin(commands.Cog, name = "Admin-Only Commands"):
         if word in banned_words:
             banned_words.remove(word.lower())
             with open("badwords.txt","w") as f:
-                await ctx.send(f"The word '{word}' is now allowed to be said")
+                await ctx.send(f"The word '{word}' is now allowed to be said.")
                 await f.write("\n".join(banned_words))
             f.close()
         # Tell user that word wasn't banned
         else:
-            await ctx.send(f"The word '{word}' isn't banned here")
+            await ctx.send(f"The word '{word}' isn't banned here.")
 
 def setup(bot):
     bot.add_cog(Admin(bot))
