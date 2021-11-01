@@ -56,5 +56,24 @@ class Admin(commands.Cog, name = "Admin-Only Commands"):
         else:
             await ctx.send(f"That is already a bad word")
 
+    # Remove word from banned words list
+    @commands.command(name ="remove_word", help = "Removes word from the list of banned words")
+    @commands.has_permissions(administrator=True)
+    async def remove_word(self, ctx, word: str):
+        # Load words into set
+        with open("badwords.txt","r") as f:
+            banned_words = {line.lower().strip() for line in f}
+        f.close()
+        # Check and remove word if its banned
+        if word in banned_words:
+            banned_words.remove(word.lower())
+            with open("badwords.txt","w") as f:
+                await ctx.send(f"This word is now allowed ")
+                await f.write("\n".join(banned_words))
+            f.close()
+        # Tell user that word wasn't banned
+        else:
+            await ctx.send(f"That word isn't banned here")
+
 def setup(bot):
     bot.add_cog(Admin(bot))
