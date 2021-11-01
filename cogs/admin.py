@@ -39,6 +39,22 @@ class Admin(commands.Cog, name = "Admin-Only Commands"):
     async def clear(self,ctx, number_of_messages: int):
         await ctx.channel.purge(limit = number_of_messages+1)
 
+    # Add to banned words list
+    @commands.command(name ="ban_word", help = "Use to a word to the list of banned words")
+    @commands.has_permissions(administrator=True)
+    async def add_word(self, ctx, word: str):
+        # Load words into set
+        with open("badwords.txt","r") as f:
+            banned_words = {line.lower().strip() for line in f}
+        f.close()
+        # Check if word is already banned
+        if word not in banned_words:
+            with open("badwords.txt","a") as f:
+                await ctx.send(f"That word is now a bad word")
+                await f.writelines("\n" + word.lower())
+            f.close()
+        else:
+            await ctx.send(f"That word is already a bad word")
 
 def setup(bot):
     bot.add_cog(Admin(bot))
