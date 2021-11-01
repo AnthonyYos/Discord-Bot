@@ -21,10 +21,12 @@ class LearningDiscordBot_events(commands.Cog):
 
         # Banned words list
         # .strip() gets rid of new lines
-        banned_words = {line.lower().strip() for line in open("badwords.txt","r")}
+        with open("badwords.txt","r") as f:
+            banned_words = {line.lower().strip() for line in f}
+        f.close()
 
         # Delete messages containing banned words
-        if any(word in message.content for word in banned_words):
+        if any(word in message.content.lower() for word in banned_words):
             await message.delete()
             await message.channel.send("Please don't say that here")
         
